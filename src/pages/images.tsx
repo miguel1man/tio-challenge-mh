@@ -4,8 +4,8 @@ import imageData from "../app/images.json"
 
 const imagesList: NextPage = () => {
   return (
-    <main className="w-screen h-screen flex items-center justify-center">
-      <h1>Image List</h1>
+    <main className="w-screen flex flex-col items-center px-8 bg-black">
+      <h1 className="text-white py-8">Image List</h1>
       <ImageList images={imageData.images} />
     </main>
   )
