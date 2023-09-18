@@ -207,6 +207,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.6.tgz#bbf819813d6be21011b8f5801058498bec555572"
   integrity sha512-RK/kBbYOQQHLYj9Z95eh7S6t7gq4Ojt/NT8HTk8bWVhA5DaF+5SMnxHKkP4gPNN3wAZkKP+VjAf0ebtYzf+fxg==
 
+"@types/react-canvas-draw@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-canvas-draw/-/react-canvas-draw-1.2.0.tgz#2665a871fcefca0b7ec8793910f95e176c21672a"
+  integrity sha512-ZrGtORZSsF5ErpRiWw2/Yqwkf7CyCgcNfLnABb6kjCTsx8AjcepO3pkKOOYS7MqGyLHALB6GLuSALl1PtEpRhA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@18.2.7":
   version "18.2.7"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.7.tgz#67222a08c0a6ae0a0da33c3532348277c70abb63"
