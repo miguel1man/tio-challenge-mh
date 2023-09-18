@@ -1,4 +1,5 @@
 import { FC } from "react"
+import ImageViewer from "./ImageViewer"
 
 interface ImageListProps {
   images: string[]
@@ -10,11 +11,7 @@ const ImageList: FC<ImageListProps> = ({ images }) => {
       {images.map((imageUrl, index) => (
         <article key={index} className="h-full">
           <div className="w-screen h-full">
-            <img
-              src={imageUrl}
-              alt={`Image ${index + 1}`}
-              className="object-cover w-screen max-w-screen h-full"
-            />
+            <ImageViewer imageUrl={imageUrl} />
           </div>
           <div>
             <button>Edit</button>
