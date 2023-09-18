@@ -1,5 +1,4 @@
 import "tailwindcss/tailwind.css"
-
 import { FC } from "react"
 import ImageViewer from "./ImageViewer"
 
@@ -9,7 +8,7 @@ interface ImageListProps {
 
 const ImageList: FC<ImageListProps> = ({ images }) => {
   return (
-    <section className="w-lg gap-8">
+    <section className="w-md gap-8">
       {images.map((imageUrl, index) => (
         <article key={index} className="flex flex-col items-center gap-4 pb-8">
           <ImageViewer imageUrl={imageUrl} />

@@ -1,15 +1,15 @@
-import React, { useRef } from "react"
-import EditorPage from "../components/editor"
+import React from "react"
 import { useRouter } from "next/router"
+import EditComponent from "../components/ImageEditor"
 
 const Editor = () => {
-  const canvasRef = useRef(null)
   const router = useRouter()
   const imageUrl = router.query.imageUrl as string
+  // TODO: Clean query parameters
 
   return (
     <main className="bg-black h-screen flex flex-col items-center">
-      <EditorPage imageUrl={imageUrl} />
+      <EditComponent imageUrl={imageUrl} />
     </main>
   )
 }
