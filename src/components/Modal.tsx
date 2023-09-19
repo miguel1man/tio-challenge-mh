@@ -6,9 +6,16 @@ interface ModalProps {
   isOpen: boolean
   onClose: () => void
   onSave: (text: string) => void
+  updatedImage: string
 }
 
-const Modal: React.FC<ModalProps> = ({ id, isOpen, onClose, onSave }) => {
+const Modal: React.FC<ModalProps> = ({
+  id,
+  isOpen,
+  onClose,
+  onSave,
+  updatedImage,
+}) => {
   const [text, setText] = useState("")
   const imageIndex = imageData.images.findIndex((image) => image.url === id)
 
@@ -20,9 +27,9 @@ const Modal: React.FC<ModalProps> = ({ id, isOpen, onClose, onSave }) => {
       updatedImageData.images[imageIndex].request = text
 
       const selectedImage = {
-        url: id,
+        originalImage: id,
         request: text,
-        updatedimage: updatedImageData.images[imageIndex].updatedimage,
+        erasedPixels: updatedImage,
       }
 
       localStorage.setItem("editedImageData", JSON.stringify(updatedImageData))
@@ -32,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({ id, isOpen, onClose, onSave }) => {
 
       const a = document.createElement("a")
       a.href = url
-      a.download = "updatedImageData.json"
+      a.download = "requestEdit.json"
       document.body.appendChild(a)
       a.click()
 

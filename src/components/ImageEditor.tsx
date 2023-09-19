@@ -67,18 +67,24 @@ const EditComponent: FC<EditComponentProps> = ({ imageUrl }) => {
   }
 
   return (
-    <div className="bg-black h-screen flex flex-col items-center justify-center gap-4">
-      {
-        // @ts-ignore
-        <CanvasDraw
-          ref={canvasRef}
-          imgSrc={imageUrl}
-          brushColor="#000"
-          canvasHeight={imageHeight && imageHeight}
-          canvasWidth={imageWidth && imageWidth}
-        />
-      }
-      <button className="bg-white color-black p-4" onClick={handleSave}>
+    <div className="bg-black h-screen max-w-[32em] flex flex-col items-center justify-center gap-4 rounded-[1em] overflow-x-hidden">
+      <div className="border-white border-[1px] overflow-x-hidden">
+        {
+          // @ts-ignore
+          <CanvasDraw
+            ref={canvasRef}
+            imgSrc={imageUrl}
+            brushColor="#000"
+            canvasHeight={imageHeight && imageHeight}
+            canvasWidth={imageWidth && imageWidth}
+            style={{ borderRadius: "1em" }}
+          />
+        }
+      </div>
+      <button
+        className="bg-white color-black px-4 py-2 rounded-[0.5em]"
+        onClick={handleSave}
+      >
         Save
       </button>
     </div>
