@@ -1,16 +1,38 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import imageData from "../app/images.json"
+import Modal from "./Modal"
 
 interface ImageViewerProps {
   imageUrl: string
 }
 
 const ImageViewer: FC<ImageViewerProps> = ({ imageUrl }) => {
-  // TODO: Replace setEditedImage with new generated image url
-  const [editedImage, setEditedImage] = useState<string>("")
   const router = useRouter()
   const buttonStyle = "bg-white text-black px-4 py-1 mx-2"
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleRequest = () => {
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
+  const [initialEditedImageData, setInitialEditedImageData] =
+    useState<any>(imageData)
+
+  let savedEditedImageData: any
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      savedEditedImageData = localStorage.getItem("editedImageData")
+      if (savedEditedImageData) {
+        setInitialEditedImageData(JSON.parse(savedEditedImageData))
+      }
+    }
+  }, [])
 
   const handleEdit = () => {
     router.push({
@@ -19,23 +41,18 @@ const ImageViewer: FC<ImageViewerProps> = ({ imageUrl }) => {
     })
   }
 
-  const imageIndex = imageData.images.findIndex(
-    (image) => image.url === imageUrl
+  const imageIndex = initialEditedImageData.images.findIndex(
+    (image: any) => image.url === imageUrl
   )
-  const originalUrl = imageData.images[imageIndex].url
-
-  const updatedImage = imageData.images[imageIndex].edited
-
-  if (updatedImage) {
-    setEditedImage(imageData.images[imageIndex].editedimage)
-  }
-  console.log(imageData)
+  const originalUrl = initialEditedImageData.images[imageIndex].url
+  const isEditedImage = initialEditedImageData.images[imageIndex].edited
+  const updatedUrl = initialEditedImageData.images[imageIndex].updatedimage
 
   return (
     <section className="flex flex-col items-center gap-4">
       <div style={{ backgroundImage: `url(${originalUrl})` }}>
         <img
-          src={updatedImage ? editedImage : imageUrl}
+          src={isEditedImage ? updatedUrl : imageUrl}
           alt="Edited Image"
           className="object-contain w-full h-full"
         />
@@ -44,8 +61,18 @@ const ImageViewer: FC<ImageViewerProps> = ({ imageUrl }) => {
         <button className={buttonStyle} onClick={handleEdit}>
           Edit
         </button>
-        <button className={buttonStyle}>Request edit</button>
+        <button className={buttonStyle} onClick={handleRequest}>
+          Request edit
+        </button>
       </div>
+      <Modal
+        id={imageUrl}
+        isOpen={isOpen}
+        onClose={closeModal}
+        onSave={() => {
+          console.log("saved")
+        }}
+      />
     </section>
   )
 }

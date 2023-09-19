@@ -1,5 +1,6 @@
 import "tailwindcss/tailwind.css"
-import React, { useRef, useState } from "react"
+import React, { FC, useEffect, useRef, useState } from "react"
+import { useRouter } from "next/router"
 import CanvasDraw from "react-canvas-draw"
 import imageData from "../app/images.json"
 
@@ -7,9 +8,29 @@ interface EditComponentProps {
   imageUrl: string
 }
 
-const EditComponent: React.FC<EditComponentProps> = ({ imageUrl }) => {
+const EditComponent: FC<EditComponentProps> = ({ imageUrl }) => {
   const canvasRef = useRef(null)
+  const router = useRouter()
   const [editedImageData, setEditedImageData] = useState(imageData)
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  })
+
+  useEffect(() => {
+    const getImageDimensions = async () => {
+      const imgElement = document.createElement("img")
+      imgElement.src = imageUrl
+
+      imgElement.onload = () => {
+        const width = imgElement.width
+        const height = imgElement.height
+        setImageDimensions({ width, height })
+      }
+    }
+
+    getImageDimensions()
+  }, [imageDimensions, imageUrl])
 
   const handleSave = () => {
     // @ts-ignore
@@ -21,24 +42,41 @@ const EditComponent: React.FC<EditComponentProps> = ({ imageUrl }) => {
       )
 
       if (imageIndex !== -1) {
-        // Crear una copia profunda del estado
         const updatedImageData = JSON.parse(JSON.stringify(editedImageData))
-
-        // Actualizar el campo "editedimage" en el elemento correspondiente
-        updatedImageData.images[imageIndex].editedimage = editedImageLink
-
-        // Actualizar el estado con la nueva información
+        updatedImageData.images[imageIndex].edited = true
+        updatedImageData.images[imageIndex].updatedimage = editedImageLink
         setEditedImageData(updatedImageData)
-        console.log("Updated Image Data:", updatedImageData)
+        localStorage.setItem(
+          "editedImageData",
+          JSON.stringify(updatedImageData)
+        )
       }
     }
+
+    router.push({
+      pathname: "/images",
+    })
+  }
+
+  let imageHeight: any
+  let imageWidth: any
+
+  if (imageDimensions.height > 0) {
+    imageHeight = imageDimensions.height
+    imageWidth = imageDimensions.width
   }
 
   return (
     <div className="bg-black h-screen flex flex-col items-center justify-center gap-4">
       {
         // @ts-ignore
-        <CanvasDraw ref={canvasRef} imgSrc={imageUrl} brushColor="#000" />
+        <CanvasDraw
+          ref={canvasRef}
+          imgSrc={imageUrl}
+          brushColor="#000"
+          canvasHeight={imageHeight && imageHeight}
+          canvasWidth={imageWidth && imageWidth}
+        />
       }
       <button className="bg-white color-black p-4" onClick={handleSave}>
         Save
