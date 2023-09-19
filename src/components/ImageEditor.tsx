@@ -67,7 +67,7 @@ const EditComponent: FC<EditComponentProps> = ({ imageUrl }) => {
   }
 
   return (
-    <div className="bg-black h-screen max-w-[32em] flex flex-col items-center justify-center gap-4 rounded-[1em] overflow-x-hidden">
+    <div className="h-screen max-w-[32em] flex flex-col items-center justify-center gap-4 rounded-[1em] overflow-x-hidden">
       <div className="border-white border-[1px] overflow-x-hidden">
         {
           // @ts-ignore
@@ -82,7 +82,7 @@ const EditComponent: FC<EditComponentProps> = ({ imageUrl }) => {
         }
       </div>
       <button
-        className="bg-white color-black px-4 py-2 rounded-[0.5em]"
+        className="bg-white color-black px-4 py-1 rounded-[0.5em] hover:scale-110"
         onClick={handleSave}
       >
         Save

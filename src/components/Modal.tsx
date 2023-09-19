@@ -65,13 +65,13 @@ const Modal: React.FC<ModalProps> = ({
 
           <div className="mt-4 flex justify-end">
             <button
-              className="mr-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="mr-2 px-4 py-2 bg-primary text-dark rounded hover:bg-dark hover:text-primary"
               onClick={handleSave}
             >
               Save
             </button>
             <button
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+              className="px-4 py-2 bg-gray-300 text-dark rounded hover:bg-dark hover:text-primary"
               onClick={onClose}
             >
               Cancel

@@ -9,7 +9,8 @@ interface ImageViewerProps {
 
 const ImageViewer: FC<ImageViewerProps> = ({ imageUrl }) => {
   const router = useRouter()
-  const buttonStyle = "bg-white text-black px-4 py-1 mx-2 rounded-[0.5em]"
+  const buttonStyle =
+    "bg-white text-black px-4 py-1 mx-2 rounded-[0.5em] hover:scale-110"
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -51,7 +52,7 @@ const ImageViewer: FC<ImageViewerProps> = ({ imageUrl }) => {
   return (
     <section className="flex flex-col items-center gap-4">
       <div
-        className="border-white border-[1px] rounded-[1em]"
+        className="border-white border-[2px] rounded-[1em]"
         style={{ backgroundImage: `url(${originalUrl})` }}
       >
         <img

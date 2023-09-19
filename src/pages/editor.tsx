@@ -8,7 +8,7 @@ const Editor = () => {
   // TODO: Clean query parameters
 
   return (
-    <main className="bg-black h-screen flex flex-col items-center">
+    <main className="bg-primary h-screen flex flex-col items-center">
       <EditComponent imageUrl={imageUrl} />
     </main>
   )
